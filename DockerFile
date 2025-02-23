@@ -1,0 +1,26 @@
+# Use the official GCC image as the base
+FROM gcc:latest
+
+# Set working directory
+WORKDIR /app
+
+# Copy the entire project into the container
+COPY . /app
+
+# Build Assignment 1: Single-threaded TCP server and client
+RUN gcc -o server_tcp assignment1/server_tcp.c && \
+    gcc -o client_tcp assignment1/client_tcp.c
+
+# Build Assignment 2: Multi-threaded TCP server
+RUN gcc -o server_mt_tcp assignment2/server_mt_tcp.c -lpthread
+
+# Build Assignment 3: Synchronous RPC server and client
+RUN gcc -o rpc_sync_server assignment3/rpc_sync_server.c && \
+    gcc -o rpc_sync_client assignment3/rpc_sync_client.c
+
+# Build Assignment 4: Asynchronous RPC server and client
+RUN gcc -o rpc_async_server assignment4/rpc_async_server.c -lpthread && \
+    gcc -o rpc_async_client assignment4/rpc_async_client.c -lpthread
+
+# Default command: open a shell so you can run executables manually
+CMD ["bash"]
